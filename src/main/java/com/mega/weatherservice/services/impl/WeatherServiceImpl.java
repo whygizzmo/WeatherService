@@ -7,6 +7,7 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.parser.Parser;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -82,7 +83,10 @@ public class WeatherServiceImpl implements WeatherService {
 
     @Override
     public String toСelsius(String temp) {
+        double tempInKelv = Double.parseDouble(temp);
+        double tempCels = tempInKelv-273.15;
 
-        return null;
+        return temp = String.valueOf(tempCels);
+
     }
 }
