@@ -86,7 +86,7 @@ public class WeatherServiceImpl implements WeatherService {
         double tempInKelv = Double.parseDouble(temp);
         double tempCels = tempInKelv-273.15;
 
-        return temp = String.valueOf(tempCels);
+        return temp = String.format("%.0f",tempCels);
 
     }
 }
