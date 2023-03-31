@@ -22,6 +22,8 @@ public class MainView extends VerticalLayout {
        List<JSONObject>jsonObjectList = weatherService.getFiveWeather(weatherService.getUrlWeather());
 
         add("Температура : "+ (weatherService.toСelsius(jsonObjectList.get(0).get("temp").toString()))+" °C");
+        add("Температура : "+ (weatherService.toСelsius(jsonObjectList.get(1).get("temp").toString()))+" °C");
+        add("Температура : "+ (weatherService.toСelsius(jsonObjectList.get(2).get("temp").toString()))+" °C");
 
 
        /* VerticalLayout todosList = new VerticalLayout();
