@@ -67,7 +67,7 @@ public class WeatherServiceImpl implements WeatherService {
                 date = date.plusDays(1L);
                 Weather weather = new Weather();
 
-                weather.setTemp(jsonObjectNext.get("temp").toString());
+                weather.setTemp(jsonObjectNext.get("temp_max").toString());
                 weather.setFeelsLike(jsonObjectNext.get("feels_like").toString());
                 weather.setHumidity(jsonObjectNext.get("humidity").toString());
 

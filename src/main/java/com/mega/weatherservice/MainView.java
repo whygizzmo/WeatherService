@@ -41,7 +41,7 @@ public class MainView extends VerticalLayout {
             horizontalLayout.add(panel);
         }
 
-        Label titleLabel = new Label("Прогноз погоды на 5 дней");
+        Label titleLabel = new Label("Прогноз погоды на 5 дней г.Бишкек");
         titleLabel.getElement().getStyle().set("font-size", "24px");
         titleLabel.getElement().getStyle().set("font-weight", "center");
         add(titleLabel, horizontalLayout);
