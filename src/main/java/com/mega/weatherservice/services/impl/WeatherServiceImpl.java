@@ -44,7 +44,7 @@ public class WeatherServiceImpl implements WeatherService {
     @Override
     public List<Weather> getFiveWeather(String jsonList) {
         List<JSONObject> jsonObjects = new ArrayList<>();
-        List<Weather>weatherList = new ArrayList<>();
+        List<Weather> weatherList = new ArrayList<>();
 
         JSONArray jsonArray = new JSONArray(jsonList.substring(41));
 
@@ -73,18 +73,67 @@ public class WeatherServiceImpl implements WeatherService {
 
                 JSONArray jsonArrForWeather = (JSONArray) jsonObject.get("weather");
                 jsonObjectNext = jsonArrForWeather.getJSONObject(0);
-                weather.setWeath(jsonObjectNext.get("main").toString());
+                switch (jsonObjectNext.get("main").toString()) {
+                    case "Clear":
+                        weather.setWeath("Ясно");
+                        break;
+                    case "Clouds":
+                        weather.setWeath("Облачно");
+                        break;
+                    case "Few clouds":
+                        weather.setWeath("Небольшая облачность");
+                        break;
+                    case "Scattered clouds":
+                        weather.setWeath("Рассеянные облака");
+                        break;
+                    case "Broken clouds":
+                        weather.setWeath("Облачно с прояснениями");
+                        break;
+                    case "Overcast clouds":
+                        weather.setWeath("Облачно");
+                        break;
+                    case "Mist":
+                        weather.setWeath("Туман");
+                        break;
+                    case "Rain":
+                        weather.setWeath("Дождь");
+                        break;
+                    case "Heavy rain":
+                        weather.setWeath("Ливень");
+                        break;
+                    case "Thunderstorm":
+                        weather.setWeath("Гроза");
+                        break;
+                    case "Thunderstorm with rain":
+                        weather.setWeath("Гроза с дождем");
+                        break;
+                    case "Thunderstorm with hail":
+                        weather.setWeath("Гроза с градом");
+                        break;
+                    case "Sleet":
+                        weather.setWeath("Мокрый снег");
+                        break;
+                    case "Snow":
+                        weather.setWeath("Снег");
+                        break;
+                    case "Heavy snow":
+                        weather.setWeath("Снегопад");
+                        break;
+                    case "Hail":
+                        weather.setWeath("Град");
+                        break;
+                }
+                //  weather.setWeath(jsonObjectNext.get("main").toString());
 
                 jsonObjectNext = (JSONObject) jsonObject.get("wind");
                 weather.setWindSpeed(jsonObjectNext.get("speed").toString());
 
                 String dateFromJson = jsonObject.get("dt_txt").toString();
-                weather.setDate(LocalDate.of((Integer.valueOf(dateFromJson.substring(0,4))),
-                                             (Integer.valueOf(dateFromJson.substring(5,7)))<10?(Integer.valueOf(dateFromJson.substring(6,7))):(Integer.valueOf(dateFromJson.substring(5,7))),
-                                             (Integer.valueOf(dateFromJson.substring(8,10)))<10?(Integer.valueOf(dateFromJson.substring(9,10))):(Integer.valueOf(dateFromJson.substring(8,10)))));
+                weather.setDate(LocalDate.of((Integer.valueOf(dateFromJson.substring(0, 4))),
+                        (Integer.valueOf(dateFromJson.substring(5, 7))) < 10 ? (Integer.valueOf(dateFromJson.substring(6, 7))) : (Integer.valueOf(dateFromJson.substring(5, 7))),
+                        (Integer.valueOf(dateFromJson.substring(8, 10))) < 10 ? (Integer.valueOf(dateFromJson.substring(9, 10))) : (Integer.valueOf(dateFromJson.substring(8, 10)))));
 
                 weatherList.add(weather);
-
 
 
             } else {
