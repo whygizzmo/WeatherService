@@ -1,5 +1,6 @@
 package com.mega.weatherservice;
 
+import com.mega.weatherservice.models.Weather;
 import com.mega.weatherservice.services.WeatherService;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
@@ -19,11 +20,16 @@ public class MainView extends VerticalLayout {
 
         //  List<JSONObject> weathers = weatherService.getFiveWeather();
         //weatherService.getFiveWeather(weatherService.getUrlWeather());
-       List<JSONObject>jsonObjectList = weatherService.getFiveWeather(weatherService.getUrlWeather());
+       List<Weather>weatherList = weatherService.getFiveWeather(weatherService.getUrlWeather());
 
-        add("Температура : "+ (weatherService.toСelsius(jsonObjectList.get(0).get("temp").toString()))+" °C");
-        add("Температура : "+ (weatherService.toСelsius(jsonObjectList.get(1).get("temp").toString()))+" °C");
-        add("Температура : "+ (weatherService.toСelsius(jsonObjectList.get(2).get("temp").toString()))+" °C");
+        add("Температура : "+ (weatherService.toСelsius(weatherList.get(0).getTemp())+" °C") +"\t"+
+            "Ощущаетс "+ (weatherService.toСelsius(weatherList.get(0).getFeelsLike())) +"\t"+
+            "Влажность "+(weatherList.get(0).getHumidity()) +"\n"+
+            "Погода "+(weatherList.get(0).getWeath()) +"\n"+
+            "Скорость ветра "+(weatherList.get(0).getWindSpeed()) +"\n"+
+            "День "+(weatherList.get(0).getDate().toString()));
+        add("Температура : "+ (weatherService.toСelsius(weatherList.get(1).getTemp())+" °C"));
+        add("Температура : "+ (weatherService.toСelsius(weatherList.get(2).getTemp())+" °C"));
 
 
        /* VerticalLayout todosList = new VerticalLayout();

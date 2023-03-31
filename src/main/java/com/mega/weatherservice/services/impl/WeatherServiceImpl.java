@@ -1,5 +1,6 @@
 package com.mega.weatherservice.services.impl;
 
+import com.mega.weatherservice.models.Weather;
 import com.mega.weatherservice.services.WeatherService;
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
@@ -41,8 +42,9 @@ public class WeatherServiceImpl implements WeatherService {
     }
 
     @Override
-    public List<JSONObject> getFiveWeather(String jsonList) {
+    public List<Weather> getFiveWeather(String jsonList) {
         List<JSONObject> jsonObjects = new ArrayList<>();
+        List<Weather>weatherList = new ArrayList<>();
 
         JSONArray jsonArray = new JSONArray(jsonList.substring(41));
 
@@ -63,6 +65,26 @@ public class WeatherServiceImpl implements WeatherService {
                 JSONObject jsonObjectNext = (JSONObject) jsonObject.get("main");
                 jsonObjects.add(jsonObjectNext);
                 date = date.plusDays(1L);
+                Weather weather = new Weather();
+
+                weather.setTemp(jsonObjectNext.get("temp").toString());
+                weather.setFeelsLike(jsonObjectNext.get("feels_like").toString());
+                weather.setHumidity(jsonObjectNext.get("humidity").toString());
+
+                JSONArray jsonArrForWeather = (JSONArray) jsonObject.get("weather");
+                jsonObjectNext = jsonArrForWeather.getJSONObject(0);
+                weather.setWeath(jsonObjectNext.get("main").toString());
+
+                jsonObjectNext = (JSONObject) jsonObject.get("wind");
+                weather.setWindSpeed(jsonObjectNext.get("speed").toString());
+
+                String dateFromJson = jsonObject.get("dt_txt").toString();
+                weather.setDate(LocalDate.of((Integer.valueOf(dateFromJson.substring(0,4))),
+                                             (Integer.valueOf(dateFromJson.substring(5,7)))<10?(Integer.valueOf(dateFromJson.substring(6,7))):(Integer.valueOf(dateFromJson.substring(5,7))),
+                                             (Integer.valueOf(dateFromJson.substring(8,10)))<10?(Integer.valueOf(dateFromJson.substring(9,10))):(Integer.valueOf(dateFromJson.substring(8,10)))));
+
+                weatherList.add(weather);
+
 
 
             } else {
@@ -72,7 +94,7 @@ public class WeatherServiceImpl implements WeatherService {
             j++;
         }
 
-        return jsonObjects;
+        return weatherList;
     }
 
     @Override
